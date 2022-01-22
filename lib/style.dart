@@ -12,10 +12,18 @@ var myTheme = ThemeData(
   ),
   textTheme: TextTheme(
     bodyText2: TextStyle(color:Colors.deepOrange),
+    bodyText1: TextStyle(color:Colors.deepPurple),
   ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
       backgroundColor: Colors.grey,
     )
   ),
+  // bottomAppBarTheme: BottomAppBarTheme(
+  //     color:Colors.black87;
+  // )
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    selectedItemColor: Colors.black87,
+    // unselectedItemColor: Colors.black12,
+  )
 );

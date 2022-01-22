@@ -4,17 +4,29 @@ import './style.dart' as main_style;
 void main() {
   runApp(
       MaterialApp(
-        home : MyApp(),
+        home : MyStful(),
         theme: main_style.myTheme,
       )
   );
 }
+class MyStful extends StatefulWidget {
+  const MyStful({Key? key}) : super(key: key);
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  @override
+  _MyStfulState createState() => _MyStfulState();
+}
+
+class _MyStfulState extends State<MyStful> {
+
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text('No AD stagram'),
@@ -23,19 +35,27 @@ class MyApp extends StatelessWidget {
           Icon(Icons.menu),
         ],
       ),
-      body: Theme(
-        data: ThemeData(
-          textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.blue,
-              )
-          ),
-        ),
-        child: Container(
-            child: TextButton(onPressed:(){}, child: Text('text button'),)
-        ),
-      )
-    );
+      body: Container(
+        child: Text('test text', style: Theme.of(context).textTheme.bodyText1,), // style class 변경
+      ),
 
+      bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag_outlined),
+            label: 'Business',
+          ),
+        ],
+        // currentIndex: _selectedIndex,
+        // selectedItemColor: Colors.amber[800],
+        // onTap: _onItemTapped,
+      ),
+    );
   }
 }
