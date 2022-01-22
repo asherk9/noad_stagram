@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './style.dart' as main_style;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 void main() {
   runApp(
@@ -9,6 +11,38 @@ void main() {
       )
   );
 }
+
+
+
+class myHome extends StatelessWidget {
+  myHome({Key? key, this.data}) : super(key: key);
+  final data;
+
+  @override
+  Widget build(BuildContext context) {
+
+    if(data.isNotEmpty) {
+      return ListView.builder(
+          itemCount: data.length,
+          padding: EdgeInsets.all(8),
+          itemBuilder: (BuildContext c, int i){
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.network(data[i]['image']),
+                Text(data[i]['content']),
+                Text(data[i]['user']),
+                Text(data[i]['date']),
+              ],
+            );
+          }
+      );
+    } else {
+      return Text('loading');
+    }
+  }
+}
+
 class MyStful extends StatefulWidget {
   const MyStful({Key? key}) : super(key: key);
   @override
@@ -18,6 +52,23 @@ class MyStful extends StatefulWidget {
 class _MyStfulState extends State<MyStful> {
   int _selectedPageIndex = 0;
   PageController pgController = PageController();
+  List jsonResult = [];
+
+  @override
+  void initState() {
+    super.initState();
+    print('app load');
+    getData();
+  }
+
+  getData() async {
+    var _result = await http.get( Uri.parse('https://asherk9.github.io/share/sample.json') );
+    setState(() {
+      if (_result.statusCode == 200) {
+        jsonResult = jsonDecode(_result.body);
+      }
+    });
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -29,14 +80,6 @@ class _MyStfulState extends State<MyStful> {
   @override
   Widget build(BuildContext context) {
 
-    var myPageVIew = PageView(
-      controller: pgController,
-      children: [
-        Text('first tab'),
-        Text('Second tab'),
-      ],
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: Text('No AD stagram'),
@@ -45,7 +88,7 @@ class _MyStfulState extends State<MyStful> {
           Icon(Icons.menu),
         ],
       ),
-      body: myPageVIew,
+      body: myHome(data:jsonResult),
 
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
