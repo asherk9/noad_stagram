@@ -11,22 +11,32 @@ void main() {
 }
 class MyStful extends StatefulWidget {
   const MyStful({Key? key}) : super(key: key);
-
   @override
   _MyStfulState createState() => _MyStfulState();
 }
 
 class _MyStfulState extends State<MyStful> {
+  int _selectedPageIndex = 0;
+  PageController pgController = PageController();
 
-  int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      _selectedPageIndex = index;
+
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
+    var myPageVIew = PageView(
+      controller: pgController,
+      children: [
+        Text('first tab'),
+        Text('Second tab'),
+      ],
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text('No AD stagram'),
@@ -35,9 +45,7 @@ class _MyStfulState extends State<MyStful> {
           Icon(Icons.menu),
         ],
       ),
-      body: Container(
-        child: Text('test text', style: Theme.of(context).textTheme.bodyText1,), // style class 변경
-      ),
+      body: myPageVIew,
 
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: false,
@@ -49,13 +57,16 @@ class _MyStfulState extends State<MyStful> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag_outlined),
-            label: 'Business',
+            label: 'Shop',
           ),
         ],
-        // currentIndex: _selectedIndex,
+        // currentIndex: _selectedPageIndex,
         // selectedItemColor: Colors.amber[800],
-        // onTap: _onItemTapped,
+        onTap: _onItemTapped, // onPressed 기능
       ),
     );
   }
 }
+
+
+
