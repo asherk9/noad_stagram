@@ -3,16 +3,22 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 import './style.dart' as main_style;
 import './upload.dart' as upload_page;
 import './items.dart' as loop_items;
+import './storeMain.dart' as sm;
 
 void main() {
   runApp(
-      MaterialApp(
-        home : MyStful(),
-        theme: main_style.myTheme,
+      ChangeNotifierProvider(
+        create: (c) => sm.StateStore(),
+        child: MaterialApp(
+          home : MyStful(),
+          theme: main_style.myTheme,
+        ),
       )
   );
 }
@@ -25,7 +31,7 @@ class MyStful extends StatefulWidget {
 
 class _MyStfulState extends State<MyStful> {
   int _selectedPageIndex = 0;
-  PageController pgController = PageController();
+  // PageController pgController = PageController();
   List jsonResult = [];
   bool showFlag = true;
   var newImage;
@@ -35,6 +41,7 @@ class _MyStfulState extends State<MyStful> {
     super.initState();
     print('app load');
     getData();
+    saveDataPreference();
   }
 
   setNewUpload(con) {
@@ -50,6 +57,20 @@ class _MyStfulState extends State<MyStful> {
     setState(() {
       jsonResult.insert(0, _newData);
     });
+  }
+
+  saveDataPreference() async {
+    // 이미지 캐싱은 cached_network_image: ^3.2.0
+    var storage = await SharedPreferences.getInstance();
+    storage.setString('name', 'Ash'); // 환경은 맵 스타일 key-value
+    print(storage.getString('name'));
+    storage.remove('name');
+
+    Map vo = {'name':'ash', 'age':20};
+    storage.setString('vo', jsonEncode(vo));
+    String strVo = storage.getString('vo') ?? 'null';
+    print(jsonDecode( strVo )['age']);
+
   }
 
   getData() async {
@@ -136,3 +157,6 @@ class _MyStfulState extends State<MyStful> {
     );
   }
 }
+
+
+

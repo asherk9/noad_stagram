@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import './storeMain.dart' as sm;
 
 class UploadPage extends StatelessWidget {
   UploadPage({Key? key, this.setNewUpload, this.newImage}) : super(key: key);
@@ -12,7 +15,7 @@ class UploadPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false, // 키보드에 안가려지게
       appBar: AppBar(
-        title: Text('Add new photo'),
+        title: Text('Add new photo by ' + context.watch<sm.StateStore>().myName),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

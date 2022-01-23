@@ -1,5 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
+
+import './profile.dart' as prof;
+
+
 
 class myHome extends StatefulWidget {
   myHome({Key? key, this.data, this.get1Data, this.setShowFlag}) : super(key: key);
@@ -63,7 +67,17 @@ class _myHomeState extends State<myHome> {
                   ? Image.network(widget.data[i]['image'])
                   : Image.file(widget.data[i]['image']),
                 Text(widget.data[i]['content']),
-                Text('작성자:${widget.data[i]['user']}'),
+
+                GestureDetector(
+                  child: Text('작성자:${widget.data[i]['user']}'),
+                  onTap: (){
+                    Navigator.push(context, 
+                      CupertinoPageRoute(builder: (c) => prof.Profile())
+                        // cuper는 옆으로
+                    );
+                  },
+                  
+                ),
                 Text(widget.data[i]['date']),
               ],
             );

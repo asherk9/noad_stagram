@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 var myTheme = ThemeData(
   iconTheme: IconThemeData(
-    color: Colors.red,
+    color: Colors.deepOrangeAccent,
   ),
   appBarTheme: AppBarTheme(
     color: Colors.white,
@@ -11,8 +11,8 @@ var myTheme = ThemeData(
     actionsIconTheme: IconThemeData(color: Colors.black87),
   ),
   textTheme: TextTheme(
-    bodyText2: TextStyle(color:Colors.deepOrange),
-    bodyText1: TextStyle(color:Colors.deepPurple),
+    bodyText2: TextStyle(color:Colors.black87),
+    bodyText1: TextStyle(color:Colors.black38),
   ),
   textButtonTheme: TextButtonThemeData(
     style: TextButton.styleFrom(
