@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 import './style.dart' as main_style;
 import './upload.dart' as upload_page;
@@ -27,7 +29,6 @@ class _MyStfulState extends State<MyStful> {
   List jsonResult = [];
   bool showFlag = true;
   var newImage;
-  var newContent;
 
   @override
   void initState() {
@@ -36,10 +37,10 @@ class _MyStfulState extends State<MyStful> {
     getData();
   }
 
-  setNewUpload(con, img) {
+  setNewUpload(con) {
     Map _newData = {
       "id": jsonResult.length+10,
-      "image": img,
+      "image": newImage,
       "likes": 0,
       "date": "Jan 23",
       "content": con,
@@ -94,9 +95,17 @@ class _MyStfulState extends State<MyStful> {
           IconButton(
             icon: Icon(Icons.add_box_outlined),
             iconSize: 30,
-            onPressed: (){
+            onPressed: () async {
+              var picker = ImagePicker();
+              var image = await picker.pickImage(source: ImageSource.gallery);
+              if (image != null) {
+                setState((){
+                  newImage = File(image.path); // 내가 이걸 못찾아서 헤매었구나
+                });
+              }
+
               Navigator.push(context,
-                MaterialPageRoute(builder: (c2) => upload_page.UploadPage(setNewUpload: setNewUpload) )
+                MaterialPageRoute(builder: (c2) => upload_page.UploadPage(setNewUpload: setNewUpload, newImage:newImage) )
               );
             },
           ),
