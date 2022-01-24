@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class SotreMain extends ChangeNotifier {
+class StoreMain extends ChangeNotifier {
   String myName = 'Ash Kim';
 
   setMyName(_s) {
@@ -10,9 +12,10 @@ class SotreMain extends ChangeNotifier {
 
 }
 
-class SotreMember extends ChangeNotifier {
+class StoreMember extends ChangeNotifier {
   int ifollower = 0;
   bool followed = false;
+  List profileImages = [];
 
   setFollower() {
     if(followed) {
@@ -24,4 +27,15 @@ class SotreMember extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  // Profile getData
+  getProfileImages() async {
+    var _result = await http.get( Uri.parse('https://codingapple1.github.io/app/profile.json') );
+    if (_result.statusCode == 200) {
+      profileImages = jsonDecode(_result.body);
+      print(profileImages.length);
+    }
+    notifyListeners();
+  }
+
 }

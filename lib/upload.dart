@@ -15,7 +15,7 @@ class UploadPage extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false, // 키보드에 안가려지게
       appBar: AppBar(
-        title: Text('Add new photo by ' + context.watch<sm.SotreMain>().myName),
+        title: Text('Add new photo by ' + context.watch<sm.StoreMain>().myName),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

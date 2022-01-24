@@ -15,8 +15,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (c) => sm.SotreMain()),
-        ChangeNotifierProvider(create: (c) => sm.SotreMember()),
+         ChangeNotifierProvider(create: (c) => sm.StoreMain()),
+        ChangeNotifierProvider(create: (c) => sm.StoreMember()),
       ],
       child: MaterialApp(
         home : MyStful(),
