@@ -5,16 +5,16 @@ import './profile.dart' as prof;
 
 
 
-class myHome extends StatefulWidget {
-  myHome({Key? key, this.data, this.get1Data, this.setShowFlag}) : super(key: key);
+class Items extends StatefulWidget {
+  Items({Key? key, this.data, this.get1Data, this.setShowFlag}) : super(key: key);
   final data, get1Data, setShowFlag;
 
 
   @override
-  State<myHome> createState() => _myHomeState();
+  State<Items> createState() => _ItemsState();
 }
 
-class _myHomeState extends State<myHome> {
+class _ItemsState extends State<Items> {
   var scroll = ScrollController();
   bool bRenewal = true;
   bool isMenuHide = false;
@@ -22,7 +22,7 @@ class _myHomeState extends State<myHome> {
   @override
   void initState() {
     super.initState();
-    print('_myHomeState load');
+
     scroll.addListener(() {
       // print(scroll.position.userScrollDirection);
       if(scroll.position.userScrollDirection == ScrollDirection.reverse){
@@ -72,7 +72,7 @@ class _myHomeState extends State<myHome> {
                   child: Text('작성자:${widget.data[i]['user']}'),
                   onTap: (){
                     Navigator.push(context, 
-                      CupertinoPageRoute(builder: (c) => prof.Profile())
+                      CupertinoPageRoute(builder: (c) => prof.Profile(userName: widget.data[i]['user']))
                         // cuper는 옆으로
                     );
                   },

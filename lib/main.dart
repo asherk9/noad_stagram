@@ -13,13 +13,16 @@ import './storeMain.dart' as sm;
 
 void main() {
   runApp(
-      ChangeNotifierProvider(
-        create: (c) => sm.StateStore(),
-        child: MaterialApp(
-          home : MyStful(),
-          theme: main_style.myTheme,
-        ),
-      )
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (c) => sm.SotreMain()),
+        ChangeNotifierProvider(create: (c) => sm.SotreMember()),
+      ],
+      child: MaterialApp(
+        home : MyStful(),
+        theme: main_style.myTheme,
+      ),
+    )
   );
 }
 
@@ -30,7 +33,7 @@ class MyStful extends StatefulWidget {
 }
 
 class _MyStfulState extends State<MyStful> {
-  int _selectedPageIndex = 0;
+  // int _SelectedPageIndex = 0;
   // PageController pgController = PageController();
   List jsonResult = [];
   bool showFlag = true;
@@ -100,10 +103,9 @@ class _MyStfulState extends State<MyStful> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedPageIndex = index;
-
-    });
+    // setState(() {
+    //   _SelectedPageIndex = index;
+    // });
   }
 
   @override
@@ -133,7 +135,7 @@ class _MyStfulState extends State<MyStful> {
           Icon(Icons.menu),
         ],
       ),
-      body: loop_items.myHome(data:jsonResult, get1Data:get1Data, setShowFlag:setShowFlag),
+      body: loop_items.Items(data:jsonResult, get1Data:get1Data, setShowFlag:setShowFlag),
 
       bottomNavigationBar: showFlag? BottomNavigationBar(
         showSelectedLabels: false,
@@ -149,7 +151,7 @@ class _MyStfulState extends State<MyStful> {
             label: 'Shop',
           ),
         ],
-        // currentIndex: _selectedPageIndex,
+        // currentIndex: _SelectedPageIndex,
         // selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped, // onPressed 기능
 
