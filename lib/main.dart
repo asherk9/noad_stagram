@@ -10,6 +10,7 @@ import './style.dart' as main_style;
 import './upload.dart' as upload_page;
 import './items.dart' as loop_items;
 import './storeMain.dart' as sm;
+import './notification.dart' as noti;
 
 void main() {
   runApp(
@@ -42,9 +43,9 @@ class _MyStfulState extends State<MyStful> {
   @override
   void initState() {
     super.initState();
-    print('app load');
     getData();
     saveDataPreference();
+    noti.initNotification();
   }
 
   setNewUpload(con) {
@@ -132,7 +133,10 @@ class _MyStfulState extends State<MyStful> {
               );
             },
           ),
-          Icon(Icons.menu),
+          IconButton(
+            icon: Icon(Icons.alarm),
+            onPressed: (){ noti.showNotification(); },
+          ),
         ],
       ),
       body: loop_items.Items(data:jsonResult, get1Data:get1Data, setShowFlag:setShowFlag),

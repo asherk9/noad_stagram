@@ -21,11 +21,13 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       body: CustomScrollView(
         slivers : [
-          SliverAppBar(title: Text(widget.userName), actions: [
-            IconButton(
-              onPressed: (){Navigator.pop(context); },
-              icon: Icon(Icons.close),
-            )
+          SliverAppBar(title: Text(widget.userName),
+            pinned: true,
+            actions: [
+              IconButton(
+                onPressed: (){Navigator.pop(context); },
+                icon: Icon(Icons.close),
+              )
           ],),
           SliverToBoxAdapter( child: ProfileHeader(),),
           SliverGrid(
