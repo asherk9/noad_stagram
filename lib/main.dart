@@ -20,20 +20,20 @@ void main() {
         ChangeNotifierProvider(create: (c) => sm.StoreMember()),
       ],
       child: MaterialApp(
-        home : MyStful(),
+        home : MyApp(),
         theme: main_style.myTheme,
       ),
     )
   );
 }
 
-class MyStful extends StatefulWidget {
-  const MyStful({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
-  _MyStfulState createState() => _MyStfulState();
+  _MyAppState createState() => _MyAppState();
 }
 
-class _MyStfulState extends State<MyStful> {
+class _MyAppState extends State<MyApp> {
   // int _SelectedPageIndex = 0;
   // PageController pgController = PageController();
   List jsonResult = [];
