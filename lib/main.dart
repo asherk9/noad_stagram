@@ -13,6 +13,7 @@ import './upload.dart' as upload_page;
 import './items.dart' as loop_items;
 import './storeMain.dart' as sm;
 import './notification.dart' as noti;
+import './shop.dart' as shop;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +42,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // int _SelectedPageIndex = 0;
+  int _selectedPageIndex = 0;
   // PageController pgController = PageController();
   List jsonResult = [];
   bool showFlag = true;
@@ -111,9 +112,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _onItemTapped(int index) {
-    // setState(() {
-    //   _SelectedPageIndex = index;
-    // });
+    setState(() {
+      _selectedPageIndex = index;
+    });
   }
 
   @override
@@ -146,7 +147,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ],
       ),
-      body: loop_items.Items(data:jsonResult, get1Data:get1Data, setShowFlag:setShowFlag),
+      body: [loop_items.Items(data:jsonResult, get1Data:get1Data, setShowFlag:setShowFlag), shop.ShopMain()][_selectedPageIndex],
 
       bottomNavigationBar: showFlag? BottomNavigationBar(
         showSelectedLabels: false,
@@ -162,7 +163,7 @@ class _MyAppState extends State<MyApp> {
             label: 'Shop',
           ),
         ],
-        // currentIndex: _SelectedPageIndex,
+        currentIndex: _selectedPageIndex,
         // selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped, // onPressed 기능
 
